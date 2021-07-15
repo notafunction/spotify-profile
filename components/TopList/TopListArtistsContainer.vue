@@ -4,8 +4,8 @@
       <nuxt-link to="/artists">View All</nuxt-link>
     </template>
     
-    <ul>
-      <TopArtistsListItem v-for="artist in artists" :key="artist.id" :artist="artist" />
+    <ul class="-my-4">
+      <TopArtistsListItem v-for="artist in artists" :key="artist.id" :artist="artist" class="my-4" />
     </ul>
 
   </TopListContainer>
@@ -25,6 +25,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

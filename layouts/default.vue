@@ -2,9 +2,9 @@
   <main id="site-container" :class="{ isMobile, isNavigationOpen }">
     <NavigationToggle v-if="isMobile" :is-open="isNavigationOpen" @toggle="handleNavigationToggle" />
     <SlideXLeftTransition>
-      <Navigation v-if="navigationIsShown" />
+      <Navigation v-if="navigationIsShown"  />
     </SlideXLeftTransition>
-    <div id="page-container">
+    <div class="flex-1 p-6 md:p-12">
       <Nuxt />
     </div>
   </main>
@@ -46,7 +46,7 @@ export default {
 
   methods: {
     setIsMobile() {
-      this.isMobile = window.innerWidth < 700
+      this.isMobile = window.innerWidth < 768
     },
 
     handleNavigationToggle() {
@@ -72,16 +72,6 @@ body {
 
   .isNavigationOpen & {
     overflow: hidden;
-  }
-}
-
-#page-container {
-  flex: 1;
-  overflow-y: auto;
-  @apply p-12;
-
-  .isMobile & {
-    @apply p-6;
   }
 }
 </style>

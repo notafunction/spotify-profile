@@ -1,10 +1,15 @@
 <template>
-  <li class="track-list-item">
-    <nuxt-link :to="`/track/${track.id}`">
-      <div class="track-list-item__image">
+  <li class="group">
+    <nuxt-link :to="`/track/${track.id}`" class="flex items-center block">
+      <div class="h-16 w-16 mr-6 overflow-hidden flex-shrink-0">
         <img :src="track.album.images[0].url" />
       </div>
-      <span>{{ track.name }}</span>
+      <span class="
+        block 
+        border-transparent border-solid border-b
+        group-hover:border-white transition-colors
+        overflow-ellipsis overflow-hidden whitespace-nowrap
+      ">{{ track.name }}</span>
     </nuxt-link>
   </li>
 </template>
@@ -19,17 +24,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.track-list-item {
-  a {
-    display: flex;
-    align-items: center;
-  }
-
-  &__image {
-    @apply h-16 w-16 mr-6;
-    overflow: hidden;
-  }
-}
-</style>

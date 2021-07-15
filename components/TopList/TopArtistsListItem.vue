@@ -1,10 +1,15 @@
 <template>
-  <li class="artist-list-item">
-    <nuxt-link :to="`/artist/${artist.id}`">
-      <div class="artist-list-item__image">
-        <img :src="artist.images[0].url" />
+  <li class="group">
+    <nuxt-link :to="`/artist/${artist.id}`" class="flex items-center block">
+      <div class="h-16 w-16 mr-6 rounded-full overflow-hidden flex-shrink-0">
+        <img :srcset="imageSrcset" :sizes="imageSizes" :src="artist.images[0].src" :alt="artist.name" />
       </div>
-      <span>{{ artist.name }}</span>
+      <span class="
+        block 
+        border-transparent border-solid border-b
+        group-hover:border-white transition-colors
+        overflow-ellipsis overflow-hidden whitespace-nowrap
+      ">{{ artist.name }}</span>
     </nuxt-link>
   </li>
 </template>
@@ -16,20 +21,16 @@ export default {
       type: Object,
       required: true,
     }
+  },
+
+  computed: {
+    imageSrcset() {
+      return this.artist.images.map((image) => `${image.url} ${image.width}w`).join(',')
+    },
+
+    imageSizes() {
+      return '64px'
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.artist-list-item {
-  a {
-    display: flex;
-    align-items: center;
-  }
-
-  &__image {
-    @apply h-16 w-16 mr-6 rounded-full;
-    overflow: hidden;
-  }
-}
-</style>

@@ -4,8 +4,8 @@
       <nuxt-link to="/tracks">View All</nuxt-link>
     </template>
     
-    <ul>
-      <TopTracksListItem v-for="track in tracks" :key="track.id" :track="track" />
+    <ul class="-my-4">
+      <TopTracksListItem v-for="track in tracks" :key="track.id" :track="track" class="my-4" />
     </ul>
 
   </TopListContainer>

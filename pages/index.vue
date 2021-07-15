@@ -12,9 +12,9 @@
         <span>{{ $auth.user.followers.total }} followers</span>
       </div>
     </header>
-    <div class="top-lists-container">
-      <TopListArtistsContainer />
-      <TopListTracksContainer />
+    <div class="top-lists-container -my-6 md:-mx-4 md:my-0">
+      <TopListArtistsContainer class="my-6 md:mx-4 md:my-0" />
+      <TopListTracksContainer class="my-6 md:mx-4 md:my-0" />
     </div>
   </div>
 </template>

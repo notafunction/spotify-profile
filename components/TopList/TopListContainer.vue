@@ -1,10 +1,10 @@
 <template>
-  <section class="container">
-    <header>
-      <h1>{{ title }}</h1>
+  <section class="w-full">
+    <header class="flex items-center justify-between">
+      <h1 class="whitespace-nowrap overflow-ellipsis mr-2 flex-grow">{{ title }}</h1>
       <slot name="action" />
     </header>
-    <main>
+    <main class="mt-16">
       <slot />
     </main>
   </section>
@@ -20,17 +20,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.container {
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  main {
-    @apply mt-16;
-  }
-}
-</style>
