@@ -29,7 +29,12 @@ export default {
   computed: {
     imageSrcset() {
       return this.images
-        .map((image) => `${image.url} ${image.width}w`)
+        .map(
+          (image) =>
+            `${image.url} ${
+              image.width || this.sizes[this.sizes.length - 1].replace('px', '')
+            }w`
+        )
         .join(',')
     },
 

@@ -4,14 +4,16 @@
 
 <script>
 export default {
-  async asyncData({ $axios, params }) {
-    const track = await $axios.$get(
-      `https://api.spotify.com/v1/tracks/${params.id}`
-    )
-
+  data() {
     return {
-      track,
+      track: {},
     }
+  },
+
+  async fetch() {
+    this.track = await this.$axios.$get(
+      `https://api.spotify.com/v1/tracks/${this.$route.params.id}`
+    )
   },
 }
 </script>

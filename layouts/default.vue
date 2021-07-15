@@ -2,11 +2,15 @@
   <main id="site-container" :class="{ isMobile, isNavigationOpen }">
     <NavigationToggle
       v-if="isMobile"
+      class="absolute top-4 right-4 z-10"
       :is-open="isNavigationOpen"
       @toggle="handleNavigationToggle"
     />
     <SlideXLeftTransition>
-      <Navigation v-if="navigationIsShown" />
+      <Navigation
+        v-if="navigationIsShown"
+        @click.native="handleNavigationToggle"
+      />
     </SlideXLeftTransition>
     <div class="flex-1 p-6 md:p-12 overflow-y-auto">
       <Nuxt />

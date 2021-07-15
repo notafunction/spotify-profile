@@ -11,6 +11,10 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  publicRuntimeConfig: {
+    spotifyApiUrl: 'https://api.spotify.com/v1',
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@/assets/scss/transitions.scss', '@/assets/scss/fonts.scss'],
 

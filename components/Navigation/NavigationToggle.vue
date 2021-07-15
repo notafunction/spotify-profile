@@ -1,8 +1,5 @@
 <template>
-  <button
-    class="absolute top-6 right-6 z-10 h-6 w-6 m-3"
-    @click="$emit('toggle')"
-  >
+  <button class="h-6 w-6 m-3" @click="$emit('toggle')">
     <SlideXLeftTransition>
       <svg-icon
         v-if="isOpen"
