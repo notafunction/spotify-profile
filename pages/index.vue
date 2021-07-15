@@ -1,6 +1,16 @@
 <template>
   <div>
-    <header class="flex flex items-end -mx-12 -mt-12 p-12 bg-gray-600">
+    <header
+      class="
+        flex flex
+        items-end
+        -mx-6
+        -mt-6
+        p-6
+        md:-mx-12 md:-mt-12 md:p-12
+        bg-gray-600
+      "
+    >
       <a
         class="overflow-hidden rounded-full w-20 h-20 md:h-36 md:w-36"
         :href="$auth.user.external_urls.spotify"

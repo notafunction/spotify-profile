@@ -1,10 +1,14 @@
 <template>
   <main id="site-container" :class="{ isMobile, isNavigationOpen }">
-    <NavigationToggle v-if="isMobile" :is-open="isNavigationOpen" @toggle="handleNavigationToggle" />
+    <NavigationToggle
+      v-if="isMobile"
+      :is-open="isNavigationOpen"
+      @toggle="handleNavigationToggle"
+    />
     <SlideXLeftTransition>
-      <Navigation v-if="navigationIsShown"  />
+      <Navigation v-if="navigationIsShown" />
     </SlideXLeftTransition>
-    <div class="flex-1 p-6 md:p-12">
+    <div class="flex-1 p-6 md:p-12 overflow-y-auto">
       <Nuxt />
     </div>
   </main>
@@ -32,7 +36,7 @@ export default {
       if (!this.isMobile) return true
       if (this.isNavigationOpen) return true
       return false
-    }
+    },
   },
 
   beforeMount() {
@@ -51,26 +55,30 @@ export default {
 
     handleNavigationToggle() {
       this.isNavigationOpen = !this.isNavigationOpen
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style lang="scss">
-html, body, #__nuxt, #__layout, #site-container {
-    height: 100%;
-    width: 100%;
-    font-family: Circular;
+html,
+body,
+#__nuxt,
+#__layout,
+#site-container {
+  height: 100%;
+  width: 100%;
+  font-family: Circular;
 }
 
 body {
-    @apply bg-gray-900 text-gray-50;
+  @apply bg-gray-900 text-gray-50;
 }
 
 #site-container {
   display: flex;
 
-  .isNavigationOpen & {
+  &.isNavigationOpen {
     overflow: hidden;
   }
 }
