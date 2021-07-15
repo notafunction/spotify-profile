@@ -1,8 +1,21 @@
 <template>
-  <button @click="$emit('toggle')" class="absolute top-6 right-6 z-10 h-6 w-6 m-3">
+  <button
+    class="absolute top-6 right-6 z-10 h-6 w-6 m-3"
+    @click="$emit('toggle')"
+  >
     <SlideXLeftTransition>
-      <svg-icon class="absolute top-0 left-0 w-full h-full" v-if="isOpen" key="close" name="menu-close" />
-      <svg-icon class="absolute top-0 left-0 w-full h-full" v-else key="open" name="menu-open" />
+      <svg-icon
+        v-if="isOpen"
+        key="close"
+        class="absolute top-0 left-0 w-full h-full"
+        name="menu-close"
+      />
+      <svg-icon
+        v-else
+        key="open"
+        class="absolute top-0 left-0 w-full h-full"
+        name="menu-open"
+      />
     </SlideXLeftTransition>
   </button>
 </template>
@@ -19,7 +32,7 @@ export default {
     isOpen: {
       type: Boolean,
       default: false,
-    }
-  }
+    },
+  },
 }
 </script>

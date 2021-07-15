@@ -3,11 +3,15 @@
     <template #action>
       <nuxt-link to="/tracks">View All</nuxt-link>
     </template>
-    
-    <ul class="-my-4">
-      <TopTracksListItem v-for="track in tracks" :key="track.id" :track="track" class="my-4" />
-    </ul>
 
+    <ul class="-my-4">
+      <TopTracksListItem
+        v-for="track in tracks"
+        :key="track.id"
+        :track="track"
+        class="my-4"
+      />
+    </ul>
   </TopListContainer>
 </template>
 
@@ -20,11 +24,12 @@ export default {
   },
 
   async fetch() {
-    const { items } = await this.$axios.$get('https://api.spotify.com/v1/me/top/tracks')
+    const { items } = await this.$axios.$get(
+      'https://api.spotify.com/v1/me/top/tracks'
+    )
     this.tracks = items
-  }
+  },
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -18,7 +18,9 @@
     "@nuxtjs/svg-sprite": "^0.5.2",
     "core-js": "^3.15.1",
     "crypto-js": "^4.0.0",
+    "moment-duration-format": "^2.3.2",
     "nuxt": "^2.15.7",
+    "vue-moment": "^4.1.0",
     "vue2-transitions": "^0.3.0"
   },
   "devDependencies": {
@@ -32,7 +34,9 @@
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.12.1",
+    "eslint-plugin-vue-a11y": "^0.0.31",
     "jest": "^27.0.5",
     "postcss": "^8.3.5",
     "prettier": "^2.3.2",
