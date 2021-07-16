@@ -72,7 +72,7 @@ export default {
         ],
         redirect: {
           login: '/login',
-          callback: '/login',
+          callback: `${process.env.BASE_URL}/login`,
           logout: '/',
           home: '/',
         },

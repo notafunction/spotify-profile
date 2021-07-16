@@ -1,0 +1,28 @@
+version: "3.7"
+
+networks:
+  traefik_proxy:
+    external: true
+
+services:
+  web:
+    image: ghcr.io/notafunction/spotify-profile:master
+    networks:
+      - traefik_proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_proxy"
+      - "traefik.frontend.rule=Host:${TRAEFIK_DOMAIN}"
+      - "traefik.port=${TRAEFIK_PORT}"
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.platform.os == linux
+
