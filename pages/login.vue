@@ -12,7 +12,7 @@ export default {
     handleLogin() {
       this.$auth.loginWith('spotify')
     },
-  }
+  },
 }
 </script>
 

@@ -1,9 +1,9 @@
 module.exports = {
-    theme: {
-        extend: {
-            colors: {
-                spotify: '#1DB954'
-            }
-        }
-    }
+  theme: {
+    extend: {
+      colors: {
+        spotify: '#1DB954',
+      },
+    },
+  },
 }
