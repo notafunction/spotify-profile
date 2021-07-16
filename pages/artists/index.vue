@@ -3,7 +3,6 @@
     <ListContainer title="Top Artists" grid>
       <template #action>
         <TimeRangeFilter
-          class="mt-4"
           :current-range="range"
           @change-range="handleRangeChange"
         />

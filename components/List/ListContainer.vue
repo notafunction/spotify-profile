@@ -1,6 +1,13 @@
 <template>
   <section class="w-full">
-    <header class="flex justify-between flex-col md:flex-row">
+    <header
+      class="
+        flex flex-wrap
+        justify-between
+        flex-col
+        md:flex-row md:items-center
+      "
+    >
       <h1
         class="
           whitespace-nowrap

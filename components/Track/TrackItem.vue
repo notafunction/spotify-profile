@@ -19,8 +19,6 @@
             hover:border-white
             group-hover:border-white
             transition-colors
-            overflow-ellipsis overflow-hidden
-            whitespace-nowrap
           "
           >{{ track.name }}</nuxt-link
         >
