@@ -15,17 +15,11 @@
         class="overflow-hidden rounded-full w-20 h-20 md:h-36 md:w-36"
         :href="$auth.user.external_urls.spotify"
       >
-        <picture>
-          <source
-            v-for="image in $auth.user.images"
-            :key="image.url"
-            :srcset="image.url"
-          />
-          <SpotifyImg
-            :images="$auth.user.images"
-            :alt="$auth.user.display_name"
-          />
-        </picture>
+        <SpotifyImg
+          v-if="$auth.user.images.length"
+          :images="$auth.user.images"
+          :alt="$auth.user.display_name"
+        />
       </a>
       <div class="ml-6">
         <h1 class="font-black text-4xl md:text-7xl">

@@ -57,7 +57,7 @@ export default {
         responseType: 'code',
         grantType: 'authorization_code',
         clientId: 'c7e00945c07e4e23bcfb50648430ee40',
-        redirectUri: '/login',
+        redirectUri: 'http://localhost:3001/login',
         codeChallengeMethod: 'S256',
         scope: [
           'user-read-private',
@@ -72,8 +72,8 @@ export default {
         ],
         redirect: {
           login: '/login',
-          callback: `${process.env.BASE_URL}/login`,
-          logout: '/',
+          callback: `http://localhost:3001/login`,
+          logout: '/login',
           home: '/',
         },
       },

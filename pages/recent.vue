@@ -16,7 +16,7 @@ export default {
   data() {
     return {
       recents: [],
-      polling: null,
+      // polling: null,
     }
   },
 
@@ -27,13 +27,13 @@ export default {
     this.recents = items
   },
 
-  created() {
-    this.polling = setInterval(() => this.$fetch(), 5000)
-  },
+  // created() {
+  //   this.polling = setInterval(() => this.$fetch(), 5000)
+  // },
 
-  beforeDestroy() {
-    clearInterval(this.polling)
-  },
+  // beforeDestroy() {
+  //   clearInterval(this.polling)
+  // },
 }
 </script>
 

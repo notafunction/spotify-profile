@@ -8,6 +8,10 @@
 export default {
   layout: 'login',
 
+  mounted() {
+    if (this.$auth.loggedIn) this.$router.replace('/')
+  },
+
   methods: {
     handleLogin() {
       this.$auth.loginWith('spotify')
