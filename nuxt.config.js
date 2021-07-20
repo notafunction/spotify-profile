@@ -1,3 +1,5 @@
+const { BASE_URL = 'http://localhost:3001' } = process.env
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -57,7 +59,7 @@ export default {
         responseType: 'code',
         grantType: 'authorization_code',
         clientId: 'c7e00945c07e4e23bcfb50648430ee40',
-        redirectUri: 'http://localhost:3001/login',
+        redirectUri: `${BASE_URL}/login`,
         codeChallengeMethod: 'S256',
         scope: [
           'user-read-private',
@@ -72,7 +74,7 @@ export default {
         ],
         redirect: {
           login: '/login',
-          callback: `http://localhost:3001/login`,
+          callback: `${BASE_URL}/login`,
           logout: '/login',
           home: '/',
         },
