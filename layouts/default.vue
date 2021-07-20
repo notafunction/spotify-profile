@@ -12,7 +12,7 @@
         @click.native="handleNavigationToggle"
       />
     </SlideXLeftTransition>
-    <div class="flex-1 p-6 md:p-12 overflow-y-auto">
+    <div class="flex-1 p-6 md:p-12 overflow-y-auto flex flex-col">
       <Nuxt />
     </div>
   </main>
