@@ -16,7 +16,7 @@
           genre | capitalize
         }}</Tag>
       </ul>
-      <div class="flex mt-6 w-4/5">
+      <div class="flex flex-wrap mt-6 w-4/5">
         <div class="mx-6 flex-1 flex flex-col items-center">
           <h2 class="text-xl text-gray-400">Popularity</h2>
           <span>
