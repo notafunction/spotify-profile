@@ -24,8 +24,19 @@
         >
         <span class="ml-2 text-xs text-gray-400">{{ formattedDuration }}</span>
       </div>
-      <span class="block text-sm text-gray-400"
-        >{{ track.artists[0].name }} · {{ track.album.name }}
+      <span class="block text-sm text-gray-400">
+        <span v-for="(artist, index) in track.artists" :key="artist.id">
+          <nuxt-link
+            class="
+              border-transparent border-solid border-b
+              hover:border-white
+              artist-link
+            "
+            :to="`/artists/${artist.id}`"
+            >{{ artist.name }}</nuxt-link
+          >{{ track.artists.length > index + 1 ? ', ' : '' }}
+        </span>
+        · {{ track.album.name }}
       </span>
     </div>
   </li>

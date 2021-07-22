@@ -17,21 +17,19 @@
         }}</Tag>
       </ul>
       <div class="flex flex-wrap mt-6 w-4/5">
-        <div class="mx-6 flex-1 flex flex-col items-center">
-          <h2 class="text-xl text-gray-400">Popularity</h2>
+        <Statistic name="Popularity" class="mx-6 flex-1">
           <span>
             <span class="text-spotify text-2xl">{{
               tweenedPopularity.toFixed(0)
             }}</span
             ><span class="text-xl"> / 100</span>
           </span>
-        </div>
-        <div class="mx-6 flex-1 flex flex-col items-center">
-          <h2 class="text-xl text-gray-400">Followers</h2>
-          <span class="text-spotify text-2xl">{{
-            Number(tweenedFollowers.toFixed(0)).toLocaleString()
-          }}</span>
-        </div>
+        </Statistic>
+        <Statistic
+          class="mx-6 flex-1"
+          name="Followers"
+          :value="Number(tweenedFollowers.toFixed(0)).toLocaleString()"
+        />
       </div>
     </div>
   </div>
@@ -58,6 +56,7 @@ export default {
 
   methods: {
     tweenValues() {
+      console.log(this)
       gsap.to(this, {
         duration: 2,
         ease: 'expo',
