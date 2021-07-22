@@ -74,6 +74,9 @@ export default {
           title: {
             display: true,
             text: this.title,
+            font: {
+              size: 24,
+            },
             color: '#fff',
           },
           tooltip: {
@@ -87,10 +90,14 @@ export default {
             },
             grid: {
               color: 'rgba(255, 255, 255, 0.25)',
-              ...this.gridStyle,
             },
             angleLines: {
               color: 'rgba(255, 255, 255, 0.25)',
+            },
+            pointLabels: {
+              font: {
+                size: 14,
+              },
             },
           },
         },
