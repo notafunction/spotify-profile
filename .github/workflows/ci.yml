@@ -62,7 +62,7 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
         env:
-          BASE_URL: https://ml-spotify-profile.herokuapp.com
+          HD_BASE_URL: https://ml-spotify-profile.herokuapp.com
 
 
       # Create Docker image
