@@ -1,9 +1,18 @@
 <template>
   <img
+    v-if="images.length"
+    :width="sizes[0]"
+    :height="sizes[0]"
     :srcset="imageSrcset"
     :sizes="imageSizes"
     :src="images[0].src"
     :alt="alt"
+  />
+  <img
+    v-else
+    :src="require('@/assets/icons/spotify-logo.svg')"
+    :width="sizes[0]"
+    :height="sizes[0]"
   />
 </template>
 
