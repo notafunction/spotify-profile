@@ -33,7 +33,17 @@
           :key="track.id"
           class="my-4"
           :track="track"
-        />
+        >
+          <template #actions>
+            <button class="h-4 w-4" @click="addTrackToPlaylist(track)">
+              <img
+                src="@/assets/icons/plus.svg"
+                title="Add to playlist"
+                alt="Add to playlist"
+              />
+            </button>
+          </template>
+        </TrackItem>
       </div>
     </section>
   </div>
@@ -68,6 +78,19 @@ export default {
     )
 
     this.recommendations = recommendations
+  },
+
+  methods: {
+    async addTrackToPlaylist(track) {
+      try {
+        await this.$axios.$post(
+          `${this.$config.spotifyApiUrl}/playlists/${this.playlist.id}/tracks`,
+          {
+            uris: [track.uri],
+          }
+        )
+      } catch (error) {}
+    },
   },
 }
 </script>

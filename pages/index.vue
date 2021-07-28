@@ -19,6 +19,7 @@
           v-if="$auth.user.images.length"
           :images="$auth.user.images"
           :alt="$auth.user.display_name"
+          :sizes="['400px']"
         />
       </a>
       <div class="ml-6">

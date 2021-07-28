@@ -21,7 +21,11 @@ export default {
   css: ['@/assets/scss/transitions.scss', '@/assets/scss/fonts.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/vue-moment.js', '@/plugins/filters.js'],
+  plugins: [
+    '@/plugins/vue-moment.js',
+    '@/plugins/filters.js',
+    '@/plugins/directives.js',
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -67,10 +71,10 @@ export default {
           'user-read-recently-played',
           'user-top-read',
           'user-follow-read',
-          'user-follow-modify',
           'playlist-read-private',
           'playlist-read-collaborative',
           'playlist-modify-public',
+          'playlist-modify-private',
         ],
         redirect: {
           login: '/login',

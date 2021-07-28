@@ -1,17 +1,26 @@
 <template>
-  <li class="flex items-center" :class="{ group: isHovering }">
-    <nuxt-link
-      :to="`/tracks/${track.id}`"
-      class="inline-flex items-center"
-      @mouseover.native="isHovering = true"
-      @mouseleave.native="isHovering = false"
-    >
-      <div class="h-16 w-16 overflow-hidden flex-shrink-0">
-        <img :src="track.album.images[0].url" />
+  <li
+    class="flex items-center"
+    :class="{ group: isHoveringImage }"
+    @mouseover="isHoveringElement = true"
+    @mouseleave="isHoveringElement = false"
+  >
+    <nuxt-link :to="`/tracks/${track.id}`" class="inline-flex items-center">
+      <div
+        class="h-16 w-16 overflow-hidden flex-shrink-0 relative"
+        @mouseover="isHoveringImage = true"
+        @mouseleave="isHoveringImage = false"
+      >
+        <TrackAudioPlayer
+          v-if="track.preview_url"
+          :src="track.preview_url"
+          class="absolute h-full w-full"
+        />
+        <SpotifyImg :images="track.album.images" alt="" :sizes="['64px']" />
       </div>
     </nuxt-link>
     <div class="flex-grow ml-6">
-      <div class="flex items-center justify-between">
+      <div class="flex items-center">
         <nuxt-link
           :to="`/tracks/${track.id}`"
           class="
@@ -22,7 +31,12 @@
           "
           >{{ track.name }}</nuxt-link
         >
-        <span class="ml-2 text-xs text-gray-400">{{ formattedDuration }}</span>
+        <div v-if="$slots.actions" class="flex items-center mx-4 transition">
+          <slot name="actions" v-bind="{ track }" />
+        </div>
+        <span class="ml-2 text-xs text-gray-400 ml-auto">{{
+          formattedDuration
+        }}</span>
       </div>
       <span class="block text-sm text-gray-400">
         <span v-for="(artist, index) in track.artists" :key="artist.id">
@@ -53,7 +67,8 @@ export default {
 
   data() {
     return {
-      isHovering: false,
+      isHoveringImage: false,
+      isHoveringElement: false,
     }
   },
 
