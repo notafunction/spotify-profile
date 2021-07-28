@@ -56,7 +56,6 @@ export default {
 
   methods: {
     tweenValues() {
-      console.log(this)
       gsap.to(this, {
         duration: 2,
         ease: 'expo',

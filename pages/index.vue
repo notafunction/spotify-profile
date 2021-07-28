@@ -15,6 +15,9 @@
         class="overflow-hidden rounded-full w-20 h-20 md:h-36 md:w-36"
         :href="$auth.user.external_urls.spotify"
       >
+        <span class="sr-only"
+          >{{ $auth.user.display_name }} Spotify Profile</span
+        >
         <SpotifyImg
           v-if="$auth.user.images.length"
           :images="$auth.user.images"
@@ -57,10 +60,11 @@
         </template>
 
         <ArtistItem
-          v-for="artist in artists.list"
+          v-for="(artist, index) in artists.list"
           :key="artist.id"
           :artist="artist"
           class="my-4"
+          :tabindex="index"
         />
       </ListContainer>
 

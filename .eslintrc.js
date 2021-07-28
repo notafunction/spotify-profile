@@ -13,8 +13,9 @@ module.exports = {
     'prettier',
     'plugin:prettier/recommended',
     'plugin:nuxt/recommended',
+    'plugin:vuejs-accessibility/recommended',
   ],
-  plugins: ['prettier', 'vue-a11y', 'nuxt'],
+  plugins: ['prettier', 'nuxt', 'vuejs-accessibility'],
   // add your custom rules here
   rules: {},
 }

@@ -1,6 +1,6 @@
 <template>
-  <div v-if="playlist" class="flex flex-col md:flex-row mx-auto">
-    <section class="flex flex-col items-center mb-6 md:mb-0 md:mr-6">
+  <div v-if="playlist" class="flex flex-col mx-auto w-full">
+    <section class="flex flex-col items-center mb-16">
       <SpotifyImg
         v-if="playlist.images.length"
         :images="playlist.images"
@@ -16,18 +16,31 @@
       </h3>
     </section>
 
-    <section>
-      <div>
-        <h1 class="text-2xl mb-8">Tracks</h1>
+    <section class="flex flex-col md:flex-row -my-6 md:-mx-4 md:my-0 w-full">
+      <ListContainer title="Tracks" small class="my-6 md:mx-4 md:my-0 flex-1">
         <TrackItem
           v-for="{ track } in playlist.tracks.items"
           :key="track.id"
           class="my-4"
           :track="track"
         />
-      </div>
-      <div class="mt-6">
-        <h1 class="text-2xl mb-8">Recommended Tracks</h1>
+      </ListContainer>
+      <ListContainer
+        title="Recommended Tracks"
+        small
+        class="my-6 md:mx-4 md:my-0 flex-1"
+      >
+        <template #action>
+          <button @click="getRecommendedTracks">
+            <img
+              src="@/assets/icons/refresh.svg"
+              alt="Refresh"
+              :class="{
+                'animate-spin': isRefreshing,
+              }"
+            />
+          </button>
+        </template>
         <TrackItem
           v-for="track in recommendations"
           :key="track.id"
@@ -44,7 +57,7 @@
             </button>
           </template>
         </TrackItem>
-      </div>
+      </ListContainer>
     </section>
   </div>
 </template>
@@ -55,41 +68,61 @@ export default {
     return {
       playlist: null,
       recommendations: [],
+      isRefreshing: false,
     }
   },
 
   async fetch() {
-    this.playlist = await this.$axios.$get(
-      `${this.$config.spotifyApiUrl}/playlists/${this.$route.params.id}`
-    )
+    await this.getPlaylistTracks()
+    this.getRecommendedTracks()
+  },
 
-    const shuffledTrackIds = this.playlist.tracks.items
-      .slice()
-      .sort(() => 0.5 - Math.random())
-      .map(({ track }) => track.id)
-
-    const { tracks: recommendations } = await this.$axios.$get(
-      `${this.$config.spotifyApiUrl}/recommendations`,
-      {
-        params: {
-          seed_tracks: shuffledTrackIds.slice(0, 5).join(','),
-        },
-      }
-    )
-
-    this.recommendations = recommendations
+  mounted() {
+    this.getRecommendedTracks()
   },
 
   methods: {
+    async getPlaylistTracks() {
+      this.playlist = await this.$axios.$get(
+        `${this.$config.spotifyApiUrl}/playlists/${this.$route.params.id}`
+      )
+    },
+
+    async getRecommendedTracks() {
+      this.isRefreshing = true
+      const shuffledTrackIds = this.playlist.tracks.items
+        .slice()
+        .sort(() => 0.5 - Math.random())
+        .map(({ track }) => track.id)
+
+      const { tracks: recommendations } = await this.$axios.$get(
+        `${this.$config.spotifyApiUrl}/recommendations`,
+        {
+          params: {
+            seed_tracks: shuffledTrackIds.slice(0, 5).join(','),
+            limit: 10,
+          },
+        }
+      )
+
+      this.recommendations = recommendations
+      this.isRefreshing = false
+    },
+
     async addTrackToPlaylist(track) {
-      try {
-        await this.$axios.$post(
-          `${this.$config.spotifyApiUrl}/playlists/${this.playlist.id}/tracks`,
-          {
-            uris: [track.uri],
-          }
-        )
-      } catch (error) {}
+      await this.$axios.$post(
+        `${this.$config.spotifyApiUrl}/playlists/${this.playlist.id}/tracks`,
+        {
+          uris: [track.uri],
+        }
+      )
+
+      this.recommendations.splice(
+        this.recommendations.findIndex(({ id }) => id === track.id),
+        1
+      )
+
+      this.getPlaylistTracks()
     },
   },
 }

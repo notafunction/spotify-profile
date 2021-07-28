@@ -25,8 +25,12 @@
     <transition-group
       name="t-fade-abs"
       tag="ul"
-      class="mt-16"
-      :class="{ grid }"
+      class="w-full"
+      :class="{
+        grid,
+        'mt-8 md:mt-16': !small,
+        'mt-4 md:mt-8': small,
+      }"
     >
       <slot />
     </transition-group>
@@ -42,6 +46,11 @@ export default {
     },
 
     grid: {
+      type: Boolean,
+      default: false,
+    },
+
+    small: {
       type: Boolean,
       default: false,
     },

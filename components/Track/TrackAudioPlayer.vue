@@ -13,6 +13,7 @@
       'bg-opacity-80': isPlaying,
     }"
     @click.prevent="togglePlayer"
+    @keyup.enter="togglePlayer"
   >
     <img
       v-if="isPlaying"
@@ -28,7 +29,10 @@
       title="Play preview"
       alt="Play preview"
     />
-    <audio ref="audioElement" :src="src" />
+    <audio ref="audioElement">
+      <source :src="src" />
+      <track kind="captions" />
+    </audio>
   </div>
 </template>
 
@@ -63,6 +67,8 @@ export default {
 
   beforeDestroy() {
     document.body.removeEventListener('click', this.detectClickOutside)
+    this.$refs.audioElement.srcObject = null
+    this.$refs.audioElement.remove()
   },
 
   methods: {

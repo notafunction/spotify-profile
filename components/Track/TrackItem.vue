@@ -3,19 +3,23 @@
     class="flex items-center"
     :class="{ group: isHoveringImage }"
     @mouseover="isHoveringElement = true"
+    @focusin="isHoveringElement = true"
     @mouseleave="isHoveringElement = false"
+    @focusout="isHoveringElement = false"
   >
     <nuxt-link :to="`/tracks/${track.id}`" class="inline-flex items-center">
       <div
         class="h-16 w-16 overflow-hidden flex-shrink-0 relative"
         @mouseover="isHoveringImage = true"
+        @focusin="isHoveringImage = true"
         @mouseleave="isHoveringImage = false"
+        @focusout="isHoveringImage = false"
       >
-        <TrackAudioPlayer
+        <!-- <TrackAudioPlayer
           v-if="track.preview_url"
           :src="track.preview_url"
           class="absolute h-full w-full"
-        />
+        /> -->
         <SpotifyImg :images="track.album.images" alt="" :sizes="['64px']" />
       </div>
     </nuxt-link>
