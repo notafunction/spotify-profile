@@ -13,6 +13,7 @@
     :src="require('@/assets/icons/spotify-logo.svg')"
     :width="sizes[0]"
     :height="sizes[0]"
+    :alt="alt"
   />
 </template>
 

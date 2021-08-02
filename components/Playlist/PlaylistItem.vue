@@ -9,6 +9,8 @@
     <nuxt-link
       :to="`/playlists/${playlist.id}`"
       class="playlist-item__image-container"
+      @focusin.native="isHovering = true"
+      @focusout.native="isHovering = false"
       @mouseover.native="isHovering = true"
       @mouseleave.native="isHovering = false"
     >
