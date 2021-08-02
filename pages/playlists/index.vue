@@ -20,9 +20,8 @@ export default {
   },
 
   async fetch() {
-    const { items } = await this.$axios.$get(
-      `${this.$config.spotifyApiUrl}/me/playlists`
-    )
+    const { items } = await this.$api.spotify.getUserPlaylists()
+
     this.playlists = items
   },
 

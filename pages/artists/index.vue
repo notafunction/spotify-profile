@@ -28,21 +28,21 @@ export default {
   },
 
   async fetch() {
-    const { items } = await this.$axios.$get(
-      `${this.$config.spotifyApiUrl}/me/top/artists`,
-      {
-        params: {
-          time_range: this.range,
-        },
-      }
+    const { items } = await this.$api.spotify.getUserTopArtistsWithRange(
+      this.range
     )
     this.artists = items
+  },
+
+  watch: {
+    range() {
+      this.$fetch()
+    },
   },
 
   methods: {
     handleRangeChange(newRange) {
       this.range = newRange
-      this.$fetch()
     },
   },
 }

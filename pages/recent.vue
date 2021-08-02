@@ -2,8 +2,8 @@
   <div>
     <ListContainer title="Recently Played Songs">
       <TrackItem
-        v-for="recent in recents"
-        :key="recent.track.id"
+        v-for="(recent, index) in recents"
+        :key="index"
         :track="recent.track"
         class="my-6"
       />
@@ -21,19 +21,9 @@ export default {
   },
 
   async fetch() {
-    const { items } = await this.$axios.$get(
-      `${this.$config.spotifyApiUrl}/me/player/recently-played`
-    )
+    const { items } = await this.$api.spotify.getUserRecentlyPlayed()
     this.recents = items
   },
-
-  // created() {
-  //   this.polling = setInterval(() => this.$fetch(), 5000)
-  // },
-
-  // beforeDestroy() {
-  //   clearInterval(this.polling)
-  // },
 }
 </script>
 

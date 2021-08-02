@@ -73,19 +73,13 @@ export default {
   },
 
   async fetch() {
-    await this.getPlaylistTracks()
-    this.getRecommendedTracks()
-  },
-
-  mounted() {
+    await this.getPlaylist()
     this.getRecommendedTracks()
   },
 
   methods: {
-    async getPlaylistTracks() {
-      this.playlist = await this.$axios.$get(
-        `${this.$config.spotifyApiUrl}/playlists/${this.$route.params.id}`
-      )
+    async getPlaylist() {
+      this.playlist = await this.$api.spotify.getPlaylist(this.$route.params.id)
     },
 
     async getRecommendedTracks() {
@@ -95,34 +89,27 @@ export default {
         .sort(() => 0.5 - Math.random())
         .map(({ track }) => track.id)
 
-      const { tracks: recommendations } = await this.$axios.$get(
-        `${this.$config.spotifyApiUrl}/recommendations`,
-        {
-          params: {
-            seed_tracks: shuffledTrackIds.slice(0, 5).join(','),
-            limit: 10,
-          },
-        }
-      )
+      const { tracks: recommendations } =
+        await this.$api.spotify.getRecommendations({
+          seed_tracks: shuffledTrackIds.slice(0, 5).join(','),
+          limit: 10,
+        })
 
       this.recommendations = recommendations
       this.isRefreshing = false
     },
 
     async addTrackToPlaylist(track) {
-      await this.$axios.$post(
-        `${this.$config.spotifyApiUrl}/playlists/${this.playlist.id}/tracks`,
-        {
-          uris: [track.uri],
-        }
-      )
+      await this.$api.spotify.postTracksToPlaylist(this.playlist.id, [
+        track.uri,
+      ])
 
       this.recommendations.splice(
         this.recommendations.findIndex(({ id }) => id === track.id),
         1
       )
 
-      this.getPlaylistTracks()
+      this.getPlaylist()
     },
   },
 }

@@ -106,20 +106,13 @@ export default {
   },
 
   async fetch() {
-    try {
-      const params = { time_range: 'long_term' }
-      const [artists, tracks] = await Promise.all([
-        this.$axios.$get(`${this.$config.spotifyApiUrl}/me/top/artists`, {
-          params,
-        }),
-        this.$axios.$get(`${this.$config.spotifyApiUrl}/me/top/tracks`, {
-          params,
-        }),
-      ])
+    const [artists, tracks] = await Promise.all([
+      this.$api.spotify.getUserTopArtistsWithRange(),
+      this.$api.spotify.getUserTopTracksWithRange(),
+    ])
 
-      this.artists.list = artists.items
-      this.tracks.list = tracks.items
-    } catch (error) {}
+    this.artists.list = artists.items
+    this.tracks.list = tracks.items
   },
 }
 </script>

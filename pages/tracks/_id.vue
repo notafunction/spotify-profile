@@ -69,16 +69,12 @@ export default {
   },
 
   async fetch() {
+    const { id } = this.$route.params
+
     const [track, features, analysis] = await Promise.all([
-      this.$axios.$get(
-        `${this.$config.spotifyApiUrl}/tracks/${this.$route.params.id}`
-      ),
-      this.$axios.$get(
-        `${this.$config.spotifyApiUrl}/audio-features/${this.$route.params.id}`
-      ),
-      this.$axios.$get(
-        `${this.$config.spotifyApiUrl}/audio-analysis/${this.$route.params.id}`
-      ),
+      this.$api.spotify.getTrack(id),
+      this.$api.spotify.getTrackFeatures(id),
+      this.$api.spotify.getTrackAnalysis(id),
     ])
 
     this.track = track

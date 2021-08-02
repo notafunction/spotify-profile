@@ -22,6 +22,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '@/plugins/axios.js',
     '@/plugins/vue-moment.js',
     '@/plugins/filters.js',
     '@/plugins/directives.js',
@@ -46,6 +47,14 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/auth-next',
+    [
+      'vue-toastification/nuxt',
+      {
+        timeout: 3000,
+        draggable: false,
+        position: 'bottom',
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

@@ -48,9 +48,7 @@ export default {
   },
 
   async fetch() {
-    this.artist = await this.$axios.$get(
-      `${this.$config.spotifyApiUrl}/artists/${this.$route.params.id}`
-    )
+    this.artist = await this.$api.spotify.getArtist(this.$route.params.id)
     this.tweenValues()
   },
 
