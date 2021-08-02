@@ -1,17 +1,19 @@
 <template>
   <main id="site-container" :class="{ isMobile, isNavigationOpen }">
-    <NavigationToggle
-      v-if="isMobile"
-      class="absolute top-4 right-4 z-10"
-      :is-open="isNavigationOpen"
-      @toggle="handleNavigationToggle"
-    />
-    <SlideXLeftTransition>
-      <Navigation
-        v-if="navigationIsShown"
-        @click.native="handleNavigationToggle"
+    <client-only>
+      <NavigationToggle
+        v-if="isMobile"
+        class="absolute top-4 right-4 z-50"
+        :is-open="isNavigationOpen"
+        @toggle="handleNavigationToggle"
       />
-    </SlideXLeftTransition>
+      <SlideXLeftTransition>
+        <Navigation
+          v-if="navigationIsShown"
+          @click.native="handleNavigationToggle"
+        />
+      </SlideXLeftTransition>
+    </client-only>
     <div class="flex-1 p-6 md:p-12 overflow-y-auto flex flex-col">
       <Nuxt />
     </div>
