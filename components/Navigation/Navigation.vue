@@ -9,6 +9,7 @@
       flex flex-col
       justify-center
       md:pr-12
+      z-50
     "
   >
     <nuxt-link class="block p-3 text-2xl md:text-lg font-bold text-lg" to="/"
