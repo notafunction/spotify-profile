@@ -1,17 +1,11 @@
 <template>
   <nav
-    class="
-      absolute
-      inset-0
-      md:inset-auto md:inset-y-0 md:right-0
-      bg-gray-800
-      p-6
-      lg:p-3 lg:p-3
-      flex flex-col
-      justify-center
-      lg:pr-12
-      z-40
-    "
+    class="p-6 bg-gray-800 flex flex-col justify-center z-40"
+    :class="{
+      isMobile: device.isMobile,
+      isTablet: device.isTablet,
+      isDesktop: device.isDesktop,
+    }"
   >
     <nuxt-link class="block p-3 text-2xl lg:text-lg font-bold text-lg" to="/"
       >Profile</nuxt-link
@@ -40,11 +34,29 @@
 </template>
 
 <script>
-export default {}
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState(['device']),
+  },
+}
 </script>
 
 <style lang="scss" scoped>
 .nuxt-link-exact-active {
   @apply text-spotify;
+}
+
+.isMobile {
+  @apply absolute inset-0;
+}
+
+.isTablet {
+  @apply absolute inset-y-0 right-0;
+}
+
+.isDesktop {
+  @apply p-3 pr-12;
 }
 </style>
