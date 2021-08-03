@@ -3,35 +3,36 @@
     class="
       absolute
       inset-0
+      md:inset-auto md:inset-y-0 md:right-0
       bg-gray-800
       p-6
-      md:p-3 md:static md:p-3
+      lg:p-3 lg:p-3
       flex flex-col
       justify-center
-      md:pr-12
+      lg:pr-12
       z-40
     "
   >
-    <nuxt-link class="block p-3 text-2xl md:text-lg font-bold text-lg" to="/"
+    <nuxt-link class="block p-3 text-2xl lg:text-lg font-bold text-lg" to="/"
       >Profile</nuxt-link
     >
     <nuxt-link
-      class="block p-3 text-2xl md:text-lg font-bold text-lg"
+      class="block p-3 text-2xl lg:text-lg font-bold text-lg"
       to="/artists"
       >Top Artists</nuxt-link
     >
     <nuxt-link
-      class="block p-3 text-2xl md:text-lg font-bold text-lg"
+      class="block p-3 text-2xl lg:text-lg font-bold text-lg"
       to="/tracks"
       >Top Tracks</nuxt-link
     >
     <nuxt-link
-      class="block p-3 text-2xl md:text-lg font-bold text-lg"
+      class="block p-3 text-2xl lg:text-lg font-bold text-lg"
       to="/recent"
       >Recent</nuxt-link
     >
     <nuxt-link
-      class="block p-3 text-2xl md:text-lg font-bold text-lg"
+      class="block p-3 text-2xl lg:text-lg font-bold text-lg"
       to="/playlists"
       >Playlists</nuxt-link
     >

@@ -1,19 +1,19 @@
 <template>
-  <main id="site-container" :class="{ isMobile, isNavigationOpen }">
-    <client-only>
-      <NavigationToggle
-        v-if="isMobile"
-        class="absolute top-4 right-4 z-50"
-        :is-open="isNavigationOpen"
-        @toggle="handleNavigationToggle"
+  <main id="site-container" :class="{ isNavigationOpen }">
+    <NavigationToggle
+      v-if="!device.isDesktop"
+      class="absolute top-4 right-4 z-50"
+      :is-open="isNavigationOpen"
+      @toggle="handleNavigationToggle"
+    />
+    <component
+      :is="device.isTablet ? 'SlideXRightTransition' : 'SlideXLeftTransition'"
+    >
+      <Navigation
+        v-if="device.isDesktop || isNavigationOpen"
+        @click.native="handleNavigationToggle"
       />
-      <SlideXLeftTransition>
-        <Navigation
-          v-if="navigationIsShown"
-          @click.native="handleNavigationToggle"
-        />
-      </SlideXLeftTransition>
-    </client-only>
+    </component>
     <div class="flex-1 p-6 md:p-12 overflow-y-auto flex flex-col">
       <Nuxt />
     </div>
@@ -21,44 +21,28 @@
 </template>
 
 <script>
-import { SlideXLeftTransition } from 'vue2-transitions'
+import { mapState } from 'vuex'
+import { SlideXLeftTransition, SlideXRightTransition } from 'vue2-transitions'
 
 export default {
   components: {
     SlideXLeftTransition,
+    SlideXRightTransition,
   },
 
   middleware: 'auth',
 
   data() {
     return {
-      isMobile: false,
       isNavigationOpen: false,
     }
   },
 
   computed: {
-    navigationIsShown() {
-      if (!this.isMobile) return true
-      if (this.isNavigationOpen) return true
-      return false
-    },
-  },
-
-  beforeMount() {
-    this.setIsMobile()
-    window.addEventListener('resize', this.setIsMobile)
-  },
-
-  beforeDestroy() {
-    window.removeEventListener('resize', this.setIsMobile)
+    ...mapState(['device']),
   },
 
   methods: {
-    setIsMobile() {
-      this.isMobile = window.innerWidth < 768
-    },
-
     handleNavigationToggle() {
       this.isNavigationOpen = !this.isNavigationOpen
     },
