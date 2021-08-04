@@ -27,6 +27,7 @@ export default {
     '@/plugins/vue-moment.js',
     '@/plugins/filters.js',
     '@/plugins/directives.js',
+    '@/plugins/infinite-loading.client.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

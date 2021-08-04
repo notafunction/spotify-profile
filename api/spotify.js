@@ -19,40 +19,44 @@ export default (axios) => {
       })
     },
 
-    getUserTopTracks() {
-      return axios.$get(`/me/top/tracks`)
+    getUserTopTracks(options) {
+      return axios.$get(`/me/top/tracks`, options)
     },
 
-    getUserRecentlyPlayed() {
-      return axios.$get(`/me/player/recently-played`)
+    getUserRecentlyPlayed(options) {
+      return axios.$get(`/me/player/recently-played`, options)
     },
 
-    getUserPlaylists() {
-      return axios.$get(`/me/playlists`)
+    getUserPlaylists(options) {
+      return axios.$get(`/me/playlists`, options)
     },
 
-    getPlaylist(id) {
-      return axios.$get(`/playlists/${id}`)
+    getPlaylist(id, options) {
+      return axios.$get(`/playlists/${id}`, options)
     },
 
-    getArtist(id) {
-      return axios.$get(`/artists/${id}`)
+    getPlaylistTracks(id, options) {
+      return axios.$get(`/playlists/${id}/tracks`, options)
     },
 
-    getTrack(id) {
-      return axios.$get(`/tracks/${id}`)
+    getArtist(id, options) {
+      return axios.$get(`/artists/${id}`, options)
     },
 
-    getRecommendations(params) {
-      return axios.$get(`/recommendations`, { params })
+    getTrack(id, options) {
+      return axios.$get(`/tracks/${id}`, options)
     },
 
-    getTrackFeatures(id) {
-      return axios.$get(`/audio-features/${id}`)
+    getRecommendations(options) {
+      return axios.$get(`/recommendations`, options)
     },
 
-    getTrackAnalysis(id) {
-      return axios.$get(`/audio-analysis/${id}`)
+    getTrackFeatures(id, options) {
+      return axios.$get(`/audio-features/${id}`, options)
+    },
+
+    getTrackAnalysis(id, options) {
+      return axios.$get(`/audio-analysis/${id}`, options)
     },
 
     postTracksToPlaylist(playlistId, trackIds) {

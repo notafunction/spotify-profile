@@ -7,17 +7,22 @@
       isDesktop: device.isDesktop,
     }"
   >
-    <nuxt-link class="block p-3 text-2xl lg:text-lg font-bold text-lg" to="/"
+    <nuxt-link
+      class="block p-3 text-2xl lg:text-lg font-bold text-lg"
+      to="/"
+      exact
       >Profile</nuxt-link
     >
     <nuxt-link
       class="block p-3 text-2xl lg:text-lg font-bold text-lg"
       to="/artists"
+      exact
       >Top Artists</nuxt-link
     >
     <nuxt-link
       class="block p-3 text-2xl lg:text-lg font-bold text-lg"
       to="/tracks"
+      exact
       >Top Tracks</nuxt-link
     >
     <nuxt-link
@@ -44,7 +49,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.nuxt-link-exact-active {
+.nuxt-link-active {
   @apply text-spotify;
 }
 

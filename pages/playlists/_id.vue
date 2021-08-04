@@ -2,7 +2,7 @@
   <div v-if="playlist" class="flex flex-col mx-auto w-full">
     <section class="flex flex-col items-center mb-16">
       <SpotifyImg
-        v-if="playlist.images.length"
+        v-if="playlist.images"
         :images="playlist.images"
         :sizes="['400px']"
         :alt="playlist.name"
@@ -17,47 +17,43 @@
     </section>
 
     <section class="flex flex-col md:flex-row -my-6 md:-mx-4 md:my-0 w-full">
-      <ListContainer title="Tracks" small class="my-6 md:mx-4 md:my-0 flex-1">
-        <TrackItem
-          v-for="{ track } in playlist.tracks.items"
-          :key="track.id"
-          class="my-4"
-          :track="track"
-        />
-      </ListContainer>
-      <ListContainer
-        title="Recommended Tracks"
-        small
-        class="my-6 md:mx-4 md:my-0 flex-1"
-      >
-        <template #action>
-          <button @click="getRecommendedTracks">
-            <img
-              src="@/assets/icons/refresh.svg"
-              alt="Refresh"
-              :class="{
-                'animate-spin': isRefreshing,
-              }"
-            />
-          </button>
-        </template>
-        <TrackItem
-          v-for="track in recommendations"
-          :key="track.id"
-          class="my-4"
-          :track="track"
-        >
-          <template #actions>
-            <button class="h-4 w-4" @click="addTrackToPlaylist(track)">
+      <div class="my-6 md:mx-4 md:my-0 flex-1">
+        <ListContainer title="Tracks" small>
+          <TrackItem
+            v-for="({ track }, index) in playlist.tracks.items"
+            :key="index"
+            class="my-4"
+            :track="track"
+          />
+        </ListContainer>
+        <client-only>
+          <infinite-loading
+            v-if="!$fetchState.pending"
+            @infinite="infiniteHandler"
+          />
+        </client-only>
+      </div>
+      <div class="my-6 md:mx-4 md:my-0 flex-1">
+        <ListContainer v-if="recommendations" title="Recommended Tracks" small>
+          <template #action>
+            <button @click="refreshRecommended">
               <img
-                src="@/assets/icons/plus.svg"
-                title="Add to playlist"
-                alt="Add to playlist"
+                src="@/assets/icons/refresh.svg"
+                alt="Refresh"
+                :class="{
+                  'animate-spin': isRefreshing,
+                }"
               />
             </button>
           </template>
-        </TrackItem>
-      </ListContainer>
+          <TrackItem
+            v-for="track in recommendations.tracks"
+            :key="track.id"
+            class="my-4"
+            :track="track"
+          />
+        </ListContainer>
+      </div>
     </section>
   </div>
 </template>
@@ -67,49 +63,45 @@ export default {
   data() {
     return {
       playlist: null,
-      recommendations: [],
+      recommendations: null,
       isRefreshing: false,
     }
   },
 
   async fetch() {
-    await this.getPlaylist()
-    this.getRecommendedTracks()
+    this.playlist = await this.$api.spotify.getPlaylist(this.$route.params.id)
+    this.refreshRecommended()
   },
 
   methods: {
-    async getPlaylist() {
-      this.playlist = await this.$api.spotify.getPlaylist(this.$route.params.id)
-    },
-
-    async getRecommendedTracks() {
+    async refreshRecommended() {
       this.isRefreshing = true
-      const shuffledTrackIds = this.playlist.tracks.items
-        .slice()
-        .sort(() => 0.5 - Math.random())
-        .map(({ track }) => track.id)
+      this.recommendations = await this.$api.spotify.getRecommendations({
+        params: {
+          seed_tracks: this.getRecommendationSeedTracks().join(','),
+        },
+      })
 
-      const { tracks: recommendations } =
-        await this.$api.spotify.getRecommendations({
-          seed_tracks: shuffledTrackIds.slice(0, 5).join(','),
-          limit: 10,
-        })
-
-      this.recommendations = recommendations
       this.isRefreshing = false
     },
 
-    async addTrackToPlaylist(track) {
-      await this.$api.spotify.postTracksToPlaylist(this.playlist.id, [
-        track.uri,
-      ])
+    getRecommendationSeedTracks() {
+      return this.playlist.tracks.items
+        .slice()
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 5)
+        .map(({ track }) => track.id)
+    },
 
-      this.recommendations.splice(
-        this.recommendations.findIndex(({ id }) => id === track.id),
-        1
-      )
-
-      this.getPlaylist()
+    async infiniteHandler($state) {
+      const { tracks } = this.playlist
+      if (!tracks.next) return $state.complete()
+      const { items, ...props } = await this.$axios.$get(tracks.next)
+      this.playlist.tracks = {
+        ...props,
+        items: tracks.items.concat(items),
+      }
+      $state.loaded()
     },
   },
 }

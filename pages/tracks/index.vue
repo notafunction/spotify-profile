@@ -9,12 +9,19 @@
       </template>
 
       <TrackItem
-        v-for="track in tracks"
+        v-for="track in tracks.items"
         :key="track.id"
         :track="track"
         class="my-6 w-auto"
       />
     </ListContainer>
+    <client-only>
+      <infinite-loading
+        v-if="!$fetchState.pending"
+        :identifier="infiniteIdentifier"
+        @infinite="handleInfinite"
+      />
+    </client-only>
   </div>
 </template>
 
@@ -23,27 +30,42 @@ export default {
   data() {
     return {
       range: 'long_term',
-      tracks: [],
+      tracks: {},
+      infiniteIdentifier: +new Date(),
     }
   },
 
   async fetch() {
-    const { items } = await this.$api.spotify.getUserTopTracksWithRange(
-      this.range
-    )
+    const tracks = await this.$api.spotify.getUserTopTracksWithRange(this.range)
 
-    this.tracks = items
+    this.tracks = tracks
   },
 
   watch: {
-    range() {
-      this.$fetch()
+    async range() {
+      await this.$fetch()
+      this.infiniteIdentifier++
     },
   },
 
   methods: {
     handleRangeChange(newRange) {
       this.range = newRange
+    },
+
+    async handleInfinite($state) {
+      if (!this.tracks.next) return $state.complete()
+
+      const { items, ...paginationProps } = await this.$axios.$get(
+        this.tracks.next
+      )
+
+      this.tracks = {
+        ...paginationProps,
+        items: this.tracks.items.concat(items),
+      }
+
+      $state.loaded()
     },
   },
 }

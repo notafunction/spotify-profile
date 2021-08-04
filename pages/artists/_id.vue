@@ -3,6 +3,7 @@
     <div class="flex flex-col items-center">
       <div class="m-auto rounded-full overflow-hidden">
         <SpotifyImg
+          class="object-cover"
           :images="artist.images"
           :sizes="['400px']"
           :alt="artist.name"
@@ -33,6 +34,7 @@
       </div>
     </div>
   </div>
+  <Loader v-else />
 </template>
 
 <script>
