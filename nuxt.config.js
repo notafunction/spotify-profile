@@ -44,11 +44,25 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
     '@nuxtjs/auth-next',
+    '@nuxtjs/pwa',
+    [
+      '@nuxtjs/gtm',
+      {
+        id: 'G-MD3J0HR2HE',
+      },
+    ],
+    [
+      '@nuxtjs/sentry',
+      {
+        dsn: 'https://35bd9c26052649ffbb6199ef9e4d2872@o904613.ingest.sentry.io/6036390',
+        tracing: true,
+        config: {},
+        publishRelease: true,
+        // initialize: !isDev,
+      },
+    ],
     [
       'vue-toastification/nuxt',
       {
