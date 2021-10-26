@@ -40,6 +40,12 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/svg-sprite',
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'G-QMKSHVQ8WZ',
+      },
+    ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -48,19 +54,11 @@ export default {
     '@nuxtjs/auth-next',
     '@nuxtjs/pwa',
     [
-      '@nuxtjs/gtm',
-      {
-        id: 'G-MD3J0HR2HE',
-      },
-    ],
-    [
       '@nuxtjs/sentry',
       {
         dsn: 'https://35bd9c26052649ffbb6199ef9e4d2872@o904613.ingest.sentry.io/6036390',
         tracing: true,
-        config: {},
         publishRelease: true,
-        // initialize: !isDev,
       },
     ],
     [
