@@ -46,6 +46,13 @@ export default {
         id: 'G-MD3J0HR2HE',
       },
     ],
+    [
+      'vue-plausible',
+      {
+        domain: process.env.PLAUSIBLE_DOMAIN,
+        apiHost: process.env.PLAUSIBLE_API_HOST,
+      },
+    ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -101,7 +108,7 @@ export default {
         ],
         redirect: {
           login: '/login',
-          callback: `${BASE_URL}/login`,
+          callback: '/login',
           logout: '/login',
           home: '/',
         },
