@@ -65,7 +65,11 @@ export default {
       {
         dsn: 'https://35bd9c26052649ffbb6199ef9e4d2872@o904613.ingest.sentry.io/6036390',
         tracing: true,
-        publishRelease: true,
+        publishRelease: {
+          org: process.env.SENTRY_ORG_SLUG,
+          project: process.env.SENTRY_PROJECT_NAME,
+          authToken: process.env.SENTRY_AUTH_TOKEN,
+        },
       },
     ],
     [
