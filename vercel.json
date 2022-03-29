@@ -8,7 +8,7 @@
       "src": "nuxt.config.js",
       "use": "@nuxtjs/vercel-builder",
       "config": {
-        "serverFiles": ["package.json", "api/**"]
+        "serverFiles": ["package.json", "api/**", "tailwind.config.js"]
       }
     }
   ],
