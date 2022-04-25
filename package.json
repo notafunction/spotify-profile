@@ -22,7 +22,7 @@
     "chart.js": "^3.7.1",
     "core-js": "^3.21.1",
     "crypto-js": "^4.1.1",
-    "gsap": "^3.10.0",
+    "gsap": "^3.10.4",
     "mobile-detect": "^1.4.5",
     "moment-duration-format": "^2.3.2",
     "nuxt": "^2.15.8",
