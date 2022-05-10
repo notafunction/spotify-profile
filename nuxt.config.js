@@ -46,13 +46,6 @@ export default {
         id: 'UA-101192380-6',
       },
     ],
-    [
-      'vue-plausible',
-      {
-        domain: process.env.PLAUSIBLE_DOMAIN,
-        apiHost: process.env.PLAUSIBLE_API_HOST,
-      },
-    ],
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -78,6 +71,13 @@ export default {
         timeout: 3000,
         draggable: false,
         position: 'bottom',
+      },
+    ],
+    [
+      'vue-plausible',
+      {
+        domain: process.env.PLAUSIBLE_DOMAIN || new URL(BASE_URL).host,
+        apiHost: process.env.PLAUSIBLE_API_HOST,
       },
     ],
   ],
