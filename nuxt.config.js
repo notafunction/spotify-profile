@@ -1,4 +1,8 @@
-const { BASE_URL = 'http://localhost:3001' } = process.env
+const isDev = process.env.NODE_ENV === 'development'
+
+const {
+  BASE_URL = isDev ? 'http://localhost:3000' : process.env.NUXT_ENV_VERCEL_URL
+} = process.env
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
