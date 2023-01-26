@@ -47,7 +47,7 @@ export default {
     [
       '@nuxtjs/google-gtag',
       {
-        id: 'UA-101192380-6',
+        id: 'G-6DDWD0BVTH',
       },
     ],
   ],
@@ -80,8 +80,8 @@ export default {
     [
       'vue-plausible',
       {
-        domain: process.env.PLAUSIBLE_DOMAIN || new URL(BASE_URL).host,
-        apiHost: process.env.PLAUSIBLE_API_HOST,
+        domain: 'spotify.mattlatham.dev',
+        apiHost: 'https://plausible.niftyneat.net',
       },
     ],
   ],
