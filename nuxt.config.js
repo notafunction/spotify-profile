@@ -41,7 +41,7 @@ export default {
     '@nuxtjs/tailwindcss',
     '@nuxtjs/svg-sprite',
     [
-      '@nuxtjs/google-analytics',
+      '@nuxtjs/google-gtag',
       {
         id: 'G-MD3J0HR2HE',
       },
