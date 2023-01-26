@@ -1,4 +1,8 @@
-const { BASE_URL = 'http://localhost:3001' } = process.env
+const isDev = process.env.NODE_ENV === 'development'
+
+const {
+  BASE_URL = isDev ? 'http://localhost:3000' : process.env.NUXT_ENV_VERCEL_URL
+} = process.env
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -43,7 +47,7 @@ export default {
     [
       '@nuxtjs/google-gtag',
       {
-        id: 'G-MD3J0HR2HE',
+        id: 'UA-101192380-6',
       },
     ],
   ],
@@ -58,7 +62,11 @@ export default {
       {
         dsn: 'https://35bd9c26052649ffbb6199ef9e4d2872@o904613.ingest.sentry.io/6036390',
         tracing: true,
-        publishRelease: true,
+        publishRelease: {
+          org: process.env.SENTRY_ORG_SLUG,
+          project: process.env.SENTRY_PROJECT_NAME,
+          authToken: process.env.SENTRY_AUTH_TOKEN,
+        },
       },
     ],
     [
@@ -67,6 +75,13 @@ export default {
         timeout: 3000,
         draggable: false,
         position: 'bottom',
+      },
+    ],
+    [
+      'vue-plausible',
+      {
+        domain: process.env.PLAUSIBLE_DOMAIN || new URL(BASE_URL).host,
+        apiHost: process.env.PLAUSIBLE_API_HOST,
       },
     ],
   ],
@@ -101,7 +116,7 @@ export default {
         ],
         redirect: {
           login: '/login',
-          callback: `${BASE_URL}/login`,
+          callback: '/login',
           logout: '/login',
           home: '/',
         },

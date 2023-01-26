@@ -38,7 +38,7 @@
         <div v-if="$slots.actions" class="flex items-center mx-4 transition">
           <slot name="actions" v-bind="{ track }" />
         </div>
-        <span class="ml-2 text-xs text-gray-400 ml-auto">{{
+        <span class="text-xs text-gray-400 ml-auto">{{
           formattedDuration
         }}</span>
       </div>
